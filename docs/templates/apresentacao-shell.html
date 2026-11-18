@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="PETSTAY / Petbnb" />
+  <meta name="description" content="Documentação completa do projeto PETSTAY / Petbnb para apresentação e compartilhamento com a equipe." />
+  <meta name="generator" content="scripts/generate-docs.mjs (fonte: PETSTAY-Documentacao.md)" />
+  <title>{{TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+{{STYLES}}
+  </style>
+</head>
+<body>
+  <header class="toolbar no-print" role="banner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">P</div>
+      <div>
+        <strong>PETSTAY / Petbnb</strong>
+        <span>Documentação para equipe e apresentação</span>
+      </div>
+    </div>
+    <div class="toolbar-actions">
+      <a class="btn btn-ghost" href="#sumario">Sumário</a>
+      <button type="button" class="btn btn-primary" id="btnExportPdf" aria-label="Exportar documentação para PDF">
+        ⬇ Exportar PDF
+      </button>
+    </div>
+  </header>
+
+  <div class="toast" id="exportToast" role="status" aria-live="polite"></div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-badge">Gerado a partir de PETSTAY-Documentacao.md · {{GENERATED_AT}}</div>
+      <h1>PETSTAY / Petbnb</h1>
+      <p>Marketplace de hospedagem e daycare para pets. Material para compartilhar com a equipe de desenvolvimento e apresentar o produto, as telas e o plano de implantação.</p>
+      <div class="meta-grid">
+        <div class="meta-card"><small>Fonte</small><strong>docs/PETSTAY-Documentacao.md</strong></div>
+        <div class="meta-card"><small>Como atualizar</small><strong>pnpm docs:build</strong></div>
+        <div class="meta-card"><small>Exportar</small><strong>Botão Exportar PDF</strong></div>
+        <div class="meta-card"><small>Dev local</small><strong>http://localhost:8080</strong></div>
+      </div>
+    </section>
+
+    <nav class="toc" id="sumario" aria-label="Sumário">
+      <h2>Sumário</h2>
+      {{TOC}}
+    </nav>
+
+    <article class="doc markdown-body">
+{{CONTENT}}
+    </article>
+
+    <p class="footer-note">Fonte única: <code>docs/PETSTAY-Documentacao.md</code>. Após editar o Markdown, rode <code>pnpm docs:build</code> para regenerar este HTML.</p>
+  </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("btnExportPdf");
+      var toast = document.getElementById("exportToast");
+      var toastTimer;
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 6000);
+      }
+
+      function exportPdf() {
+        showToast("Na impressão: escolha \"Salvar como PDF\" e ative \"Gráficos de segundo plano\".");
+        setTimeout(function () { window.print(); }, 250);
+      }
+
+      btn.addEventListener("click", exportPdf);
+      document.addEventListener("keydown", function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "p") {
+          showToast("Destino: Salvar como PDF · Gráficos de segundo plano ativados.");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

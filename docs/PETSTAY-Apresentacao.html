@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="PETSTAY / Petbnb" />
+  <meta name="description" content="Documentação completa do projeto PETSTAY / Petbnb para apresentação e compartilhamento com a equipe." />
+  <meta name="generator" content="scripts/generate-docs.mjs (fonte: PETSTAY-Documentacao.md)" />
+  <title>PETSTAY / Petbnb — Documentação Completa do Projeto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-500: #22c55e;
+  --green-600: #16a34a;
+  --green-700: #15803d;
+  --green-800: #166534;
+  --green-900: #14532d;
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #e2e8f0;
+  --surface: #ffffff;
+  --bg: #f8fafc;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(34, 197, 94, 0.18), transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, rgba(21, 128, 61, 0.12), transparent 55%),
+    var(--bg);
+  line-height: 1.65;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--green-500), var(--green-700));
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.brand strong { display: block; font-size: 0.95rem; }
+.brand span { display: block; font-size: 0.75rem; color: var(--muted); }
+
+.toolbar-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+.btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.65rem 1.1rem;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: var(--green-600);
+  color: white;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.28);
+}
+.btn-primary:hover { background: var(--green-700); }
+.btn-ghost {
+  background: white;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  background: var(--green-900);
+  color: white;
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: 0.25s ease;
+  max-width: min(360px, calc(100vw - 2rem));
+  font-size: 0.9rem;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 4rem;
+}
+
+.hero {
+  background: linear-gradient(160deg, var(--green-800), var(--green-600) 55%, #4ade80);
+  color: white;
+  border-radius: 24px;
+  padding: 2.4rem 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.28);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+.hero p { margin: 0; max-width: 56ch; color: rgba(255,255,255,0.92); }
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.meta-card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+}
+.meta-card small { display: block; opacity: 0.8; font-size: 0.75rem; }
+.meta-card strong { display: block; margin-top: 0.2rem; font-size: 0.92rem; word-break: break-word; }
+
+.toc, .doc {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.35rem;
+  margin-bottom: 1.15rem;
+}
+
+.toc h2, .doc h1, .doc h2 {
+  margin: 0 0 0.85rem;
+  color: var(--green-800);
+  letter-spacing: -0.02em;
+}
+.doc h1 { font-size: 1.6rem; }
+.doc h2 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.doc h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.doc h3 { margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--green-900); }
+.doc h4 { margin: 1rem 0 0.4rem; font-size: 0.95rem; }
+.doc p, .doc li { color: var(--muted); }
+.doc p strong, .doc li strong, .doc td strong { color: var(--ink); }
+.doc blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--green-500);
+  background: var(--green-50);
+  border-radius: 0 10px 10px 0;
+  color: var(--muted);
+}
+.doc hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 1.5rem 0;
+}
+
+.toc ol, .toc ul { margin: 0; padding-left: 1.2rem; }
+@media (min-width: 720px) {
+  .toc ol { columns: 2; column-gap: 2rem; }
+}
+.toc a { color: var(--green-700); text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+
+.doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 0.75rem 0 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.doc th, .doc td {
+  padding: 0.7rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.doc th {
+  background: var(--green-50);
+  color: var(--green-900);
+  font-weight: 700;
+}
+.doc tr:last-child td { border-bottom: none; }
+
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.85em;
+  background: var(--green-50);
+  color: var(--green-800);
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+}
+.doc pre {
+  background: #0b1220;
+  color: #e2e8f0;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.doc pre code { background: transparent; color: inherit; padding: 0; }
+.doc pre.mermaid-fallback {
+  color: #bbf7d0;
+  white-space: pre-wrap;
+}
+
+.doc img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  margin: 0.75rem 0 1rem;
+  box-shadow: var(--shadow);
+  background: #f1f5f9;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.doc input[type="checkbox"] { margin-right: 0.4rem; }
+
+.footer-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+.footer-note code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.85em;
+  background: var(--green-50);
+  color: var(--green-800);
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+}
+
+@media print {
+  @page { margin: 14mm; size: A4; }
+  body { background: white; }
+  .toolbar, .toast, .no-print { display: none !important; }
+  .wrap { max-width: none; padding: 0; }
+  .hero, .toc, .doc {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { color: inherit; text-decoration: none; }
+  .doc img { max-height: 70vh; object-fit: contain; }
+}
+
+  </style>
+</head>
+<body>
+  <header class="toolbar no-print" role="banner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">P</div>
+      <div>
+        <strong>PETSTAY / Petbnb</strong>
+        <span>Documentação para equipe e apresentação</span>
+      </div>
+    </div>
+    <div class="toolbar-actions">
+      <a class="btn btn-ghost" href="#sumario">Sumário</a>
+      <button type="button" class="btn btn-primary" id="btnExportPdf" aria-label="Exportar documentação para PDF">
+        ⬇ Exportar PDF
+      </button>
+    </div>
+  </header>
+
+  <div class="toast" id="exportToast" role="status" aria-live="polite"></div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-badge">Gerado a partir de PETSTAY-Documentacao.md · 17/11/2026, 21:34</div>
+      <h1>PETSTAY / Petbnb</h1>
+      <p>Marketplace de hospedagem e daycare para pets. Material para compartilhar com a equipe de desenvolvimento e apresentar o produto, as telas e o plano de implantação.</p>
+      <div class="meta-grid">
+        <div class="meta-card"><small>Fonte</small><strong>docs/PETSTAY-Documentacao.md</strong></div>
+        <div class="meta-card"><small>Como atualizar</small><strong>pnpm docs:build</strong></div>
+        <div class="meta-card"><small>Exportar</small><strong>Botão Exportar PDF</strong></div>
+        <div class="meta-card"><small>Dev local</small><strong>http://localhost:8080</strong></div>
+      </div>
+    </section>
+
+    <nav class="toc" id="sumario" aria-label="Sumário">
+      <h2>Sumário</h2>
+      <ol>
+
+</ol>
+    </nav>
+
+    <article class="doc markdown-body">
+<h1 id="petstay-petbnb-documentacao-completa-do-projeto">PETSTAY / Petbnb — Documentação Completa do Projeto</h1>
+<blockquote>
+<p>Marketplace estilo Airbnb para hospedagem e daycare de pets.<br>Documento para apresentação e implantação. Versão alinhada ao código do repositório.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Nome do produto</strong></td>
+<td>PETSTAY (marca na UI: <strong>Petbnb</strong>)</td>
+</tr>
+<tr>
+<td><strong>Status atual</strong></td>
+<td>Fase 0 — Protótipo navegável (SPA + mocks)</td>
+</tr>
+<tr>
+<td><strong>Stack</strong></td>
+<td>React 19 · Vite 8 · TypeScript · Tailwind · Shadcn/Radix · React Router 7</td>
+</tr>
+<tr>
+<td><strong>Repositório</strong></td>
+<td><code>petstay-airbnb-para-pets</code></td>
+</tr>
+<tr>
+<td><strong>Porta de desenvolvimento</strong></td>
+<td><code>http://localhost:8080</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="sumario">Sumário</h2>
+<ol>
+<li><a href="#1-sum%C3%A1rio-executivo">Sumário executivo</a></li>
+<li><a href="#2-problema-e-proposta-de-valor">Problema e proposta de valor</a></li>
+<li><a href="#3-personas-e-pap%C3%A9is">Personas e papéis</a></li>
+<li><a href="#4-arquitetura-atual">Arquitetura atual</a></li>
+<li><a href="#5-modelo-de-dom%C3%ADnio">Modelo de domínio</a></li>
+<li><a href="#6-mapa-de-telas-e-screenshots">Mapa de telas e screenshots</a></li>
+<li><a href="#7-jornadas-do-usu%C3%A1rio">Jornadas do usuário</a></li>
+<li><a href="#8-funcionalidades-implementado-vs-simulado">Funcionalidades: implementado vs simulado</a></li>
+<li><a href="#9-fases-do-projeto-roadmap">Fases do projeto (roadmap)</a></li>
+<li><a href="#10-implanta%C3%A7%C3%A3o">Implantação</a></li>
+<li><a href="#11-requisitos-n%C3%A3o-funcionais">Requisitos não funcionais</a></li>
+<li><a href="#12-riscos-e-mitiga%C3%A7%C3%B5es">Riscos e mitigações</a></li>
+<li><a href="#13-anexos">Anexos</a></li>
+</ol>
+<hr>
+<h2 id="1-sumario-executivo">1. Sumário executivo</h2>
+<p>O <strong>PETSTAY (Petbnb)</strong> conecta <strong>tutores</strong> e <strong>anfitriões</strong> para hospedagem domiciliar, daycare e casas pet-friendly, com foco em segurança animal: perfil de saúde/comportamento do pet, regras de aceitação, Instant Book, chat, diário de bordo, check-in/out com caução e avaliações <em>double-blind</em>.</p>
+<p><strong>Estado do código:</strong> frontend SPA completo em UX, com estado em memória (<code>DataContext</code> + <code>mockData</code>). Não há backend, autenticação real, banco de dados nem gateway de pagamento. Ideal para <strong>demo de produto e validação de UX</strong>; as Fases 1–4 descrevem o caminho até produção.</p>
+<hr>
+<h2 id="2-problema-e-proposta-de-valor">2. Problema e proposta de valor</h2>
+<h3 id="problema">Problema</h3>
+<ul>
+<li>Opções tradicionais (hotéis/creches) são caras e pouco transparentes.</li>
+<li>Pouca informação sobre compatibilidade comportamental e ambiente seguro (telas, quintal, outros animais).</li>
+<li>Comunicação fragmentada entre tutor e cuidador durante a estadia.</li>
+<li>Baixa confiança em avaliações unilaterais e ausência de trilha de cuidado (fotos, alimentação, medicação).</li>
+</ul>
+<h3 id="proposta">Proposta</h3>
+<table>
+<thead>
+<tr>
+<th>Capacidade</th>
+<th>Benefício</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Perfil completo do pet</td>
+<td>Saúde, vacinas, comportamento, emergência</td>
+</tr>
+<tr>
+<td>Anúncios com regras pet</td>
+<td>Tamanhos aceitos, cercas, telas, Instant Book</td>
+</tr>
+<tr>
+<td>Reserva com taxas claras</td>
+<td>Diária, limpeza, taxa de serviço, caução</td>
+</tr>
+<tr>
+<td>Chat + diário de bordo</td>
+<td>Transparência durante a estadia</td>
+</tr>
+<tr>
+<td>Check-in / check-out</td>
+<td>Checklist e liberação de caução</td>
+</tr>
+<tr>
+<td>Reviews double-blind</td>
+<td>Confiança mútua tutor ↔ host</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-personas-e-papeis">3. Personas e papéis</h2>
+<p>Definidos em <code>src/types/index.ts</code> como <code>UserRole</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Papel</th>
+<th>Responsabilidades</th>
+<th>Status no código</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Tutor</strong></td>
+<td>Cadastrar pets, buscar, reservar, chat, reviews</td>
+<td>UI + mock</td>
+</tr>
+<tr>
+<td><strong>Host</strong></td>
+<td>Anúncios, aprovações, calendário, diário, check-in/out</td>
+<td>UI + mock</td>
+</tr>
+<tr>
+<td><strong>Admin</strong></td>
+<td>Moderação, disputas, verificação</td>
+<td>Apenas no tipo — <strong>sem tela</strong></td>
+</tr>
+</tbody></table>
+<p>Extras do modelo: <code>isHostVerified</code>, <code>isSuperHost</code>, rating e contagem de reviews.</p>
+<p>A troca de papel na demo ocorre pelo <strong>banner de simulação</strong> no <code>Layout</code> (não é autenticação real).</p>
+<hr>
+<h2 id="4-arquitetura-atual">4. Arquitetura atual</h2>
+<pre><code>┌─────────────────────────────────────────┐
+│  Browser (SPA React Router)             │
+│  pages/ + components/ + ui/ (Shadcn)    │
+└─────────────────┬───────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────┐
+│  DataContext (React Context + useState) │
+│  actions: pets, bookings, chat, reviews │
+└─────────────────┬───────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────┐
+│  mockData.ts (seed em memória)          │
+│  Refresh do browser → perde alterações  │
+└─────────────────────────────────────────┘
+</code></pre>
+<h3 id="estrutura-de-pastas-relevante">Estrutura de pastas (relevante)</h3>
+<pre><code>petstay-airbnb-para-pets/
+├── docs/
+│   ├── PETSTAY-Documentacao.md    ← este arquivo
+│   └── screenshots/               ← capturas das telas
+├── src/
+│   ├── App.tsx                    ← rotas
+│   ├── pages/                     ← telas
+│   ├── components/                ← Layout, SearchBar, ListingCard, ui/
+│   ├── context/DataContext.tsx
+│   ├── data/mockData.ts
+│   ├── types/index.ts
+│   └── lib/utils.ts
+├── package.json
+├── vite.config.ts                 ← porta 8080
+└── README.md
+</code></pre>
+<h3 id="stack-tecnologica">Stack tecnológica</h3>
+<table>
+<thead>
+<tr>
+<th>Camada</th>
+<th>Tecnologia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UI</td>
+<td>React 19, TypeScript</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Vite 8</td>
+</tr>
+<tr>
+<td>Roteamento</td>
+<td>react-router-dom v7</td>
+</tr>
+<tr>
+<td>Estilo</td>
+<td>Tailwind CSS 3, tema verde (#22C55E), Plus Jakarta Sans</td>
+</tr>
+<tr>
+<td>Componentes</td>
+<td>Shadcn UI + Radix</td>
+</tr>
+<tr>
+<td>Forms / validação</td>
+<td>react-hook-form, Zod (disponíveis; várias telas usam <code>useState</code>)</td>
+</tr>
+<tr>
+<td>Gráficos</td>
+<td>Recharts</td>
+</tr>
+<tr>
+<td>Qualidade</td>
+<td>Oxlint, Oxfmt</td>
+</tr>
+<tr>
+<td>Package manager</td>
+<td>pnpm</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-modelo-de-dominio">5. Modelo de domínio</h2>
+<p>Fontes: <code>src/types/index.ts</code> e seed em <code>src/data/mockData.ts</code>.</p>
+<h3 id="entidades-principais">Entidades principais</h3>
+<table>
+<thead>
+<tr>
+<th>Entidade</th>
+<th>Campos-chave</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>User</strong></td>
+<td>id, name, email, avatar, role, bio, phone, flags de host</td>
+</tr>
+<tr>
+<td><strong>Pet</strong></td>
+<td>espécie, porte, vacinas, comportamento, emergência, foto</td>
+</tr>
+<tr>
+<td><strong>Listing</strong></td>
+<td>tipo de espaço, preço, taxas, amenities, regras, Instant Book, calendário bloqueado</td>
+</tr>
+<tr>
+<td><strong>Booking</strong></td>
+<td>datas, totais, status, inspeções check-in/out</td>
+</tr>
+<tr>
+<td><strong>DailyLogEntry</strong></td>
+<td>humor, alimentação, medicação, passeios, foto</td>
+</tr>
+<tr>
+<td><strong>ChatMessage</strong></td>
+<td>tutor/host, texto, opcionalmente entrada de diário</td>
+</tr>
+<tr>
+<td><strong>DoubleBlindReview</strong></td>
+<td>notas tutor→host e host→tutor, revelação mútua</td>
+</tr>
+</tbody></table>
+<h3 id="status-de-reserva">Status de reserva</h3>
+<p><code>pending</code> → <code>confirmed</code> → <code>in_progress</code> → <code>completed</code> (ou <code>cancelled</code>)</p>
+<h3 id="tipos-de-espaco">Tipos de espaço</h3>
+<ul>
+<li>Hospedagem domiciliar  </li>
+<li>Daycare (creche diurna)  </li>
+<li>Casa inteira pet-friendly</li>
+</ul>
+<h3 id="diagrama-conceitual-er-simplificado">Diagrama conceitual (ER simplificado)</h3>
+<pre><code class="language-mermaid">erDiagram
+  User ||--o{ Pet : owns
+  User ||--o{ Listing : hosts
+  User ||--o{ Booking : tutors
+  Listing ||--o{ Booking : receives
+  Pet ||--o{ Booking : stays
+  Booking ||--o{ ChatMessage : has
+  Booking ||--o{ DailyLogEntry : has
+  Booking ||--o| DoubleBlindReview : evaluated_by
+</code></pre>
+<hr>
+<h2 id="6-mapa-de-telas-e-screenshots">6. Mapa de telas e screenshots</h2>
+<p>Rotas definidas em <code>src/App.tsx</code>. Imagens em <code>docs/screenshots/</code>.</p>
+<blockquote>
+<p><strong>Como regenerar capturas:</strong> com o app em <code>http://localhost:8080</code>, percorra as rotas abaixo e salve PNGs com os nomes indicados. Use o banner de simulação para alternar tutor ↔ host.</p>
+</blockquote>
+<h3 id="61-home-explorar">6.1 Home / Explorar — `/`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/Index.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/01-home.png</code></p>
+<p><img src="screenshots/01-home.png" alt="Home / Explorar" loading="lazy" /></p>
+<p><em>Hero, busca (local, datas, cães/gatos), categorias pet e grid de anúncios.</em></p>
+<hr>
+<h3 id="62-detalhe-do-anuncio-listingsid">6.2 Detalhe do anúncio — `/listings/:id`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/ListingDetails.tsx</code><br><strong>Exemplo:</strong> <code>/listings/list-1</code><br><strong>Screenshot:</strong> <code>screenshots/02-listing-details.png</code></p>
+<p><img src="screenshots/02-listing-details.png" alt="Detalhe do anúncio" loading="lazy" /></p>
+<p><em>Galeria, descrição, regras de aceitação, amenities, host e calculadora de preço / Instant Book.</em></p>
+<hr>
+<h3 id="63-meus-pets-pets">6.3 Meus Pets — `/pets`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/PetsList.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/03-pets-list.png</code></p>
+<p><img src="screenshots/03-pets-list.png" alt="Lista de pets" loading="lazy" /></p>
+<p><em>Listagem dos pets do tutor com acesso a detalhe e exclusão.</em></p>
+<hr>
+<h3 id="64-cadastro-de-pet-petsnovo">6.4 Cadastro de pet — `/pets/novo`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/NewPetForm.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/04-new-pet.png</code></p>
+<p><img src="screenshots/04-new-pet.png" alt="Cadastro de pet" loading="lazy" /></p>
+<p><em>Wizard em 4 passos: identificação, saúde/vacinas, comportamento, emergência. Upload de carteira é simulado.</em></p>
+<hr>
+<h3 id="65-detalhe-do-pet-petsid">6.5 Detalhe do pet — `/pets/:id`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/PetDetails.tsx</code><br><strong>Exemplo:</strong> <code>/pets/pet-1</code><br><strong>Screenshot:</strong> <code>screenshots/05-pet-details.png</code></p>
+<p><img src="screenshots/05-pet-details.png" alt="Detalhe do pet" loading="lazy" /></p>
+<p><em>Perfil completo: saúde, tags de comportamento, contato de emergência.</em></p>
+<hr>
+<h3 id="66-checkout-checkoutid">6.6 Checkout — `/checkout/:id`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/Checkout.tsx</code><br><strong>Exemplo:</strong> <code>/checkout/list-1</code><br><strong>Screenshot:</strong> <code>screenshots/06-checkout.png</code></p>
+<p><img src="screenshots/06-checkout.png" alt="Checkout" loading="lazy" /></p>
+<p><em>Seleção de pet, instruções de saúde, política de cancelamento e pagamento mock (cartão local).</em></p>
+<hr>
+<h3 id="67-painel-do-anfitriao-host">6.7 Painel do anfitrião — `/host`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/HostDashboard.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/07-host-dashboard.png</code></p>
+<p><img src="screenshots/07-host-dashboard.png" alt="Painel do anfitrião" loading="lazy" /></p>
+<p><em>Aprovar/recusar reservas, calendário bloqueável, pausar anúncio, criar listing, receita mensal mock.</em></p>
+<hr>
+<h3 id="68-viagens-chat-reservations">6.8 Viagens & Chat — `/reservations`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/ReservationsChat.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/08-reservations-chat.png</code></p>
+<p><img src="screenshots/08-reservations-chat.png" alt="Viagens e Chat" loading="lazy" /></p>
+<p><em>Reservas por status, chat, diário de bordo, check-in com checklist e check-out com caução.</em></p>
+<hr>
+<h3 id="69-avaliacoes-reviews">6.9 Avaliações — `/reviews`</h3>
+<p><strong>Arquivo:</strong> <code>src/pages/ReviewsPage.tsx</code><br><strong>Screenshot:</strong> <code>screenshots/09-reviews.png</code></p>
+<p><img src="screenshots/09-reviews.png" alt="Avaliações double-blind" loading="lazy" /></p>
+<p><em>Reviews tutor↔host com revelação apenas quando ambos enviam (ou simulação de timer).</em></p>
+<hr>
+<h3 id="checklist-de-captura">Checklist de captura</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Arquivo</th>
+<th>Rota</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td><code>01-home.png</code></td>
+<td><code>/</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>02</td>
+<td><code>02-listing-details.png</code></td>
+<td><code>/listings/list-1</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>03</td>
+<td><code>03-pets-list.png</code></td>
+<td><code>/pets</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>04</td>
+<td><code>04-new-pet.png</code></td>
+<td><code>/pets/novo</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>05</td>
+<td><code>05-pet-details.png</code></td>
+<td><code>/pets/pet-1</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>06</td>
+<td><code>06-checkout.png</code></td>
+<td><code>/checkout/list-1</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>07</td>
+<td><code>07-host-dashboard.png</code></td>
+<td><code>/host</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>08</td>
+<td><code>08-reservations-chat.png</code></td>
+<td><code>/reservations</code></td>
+<td>Capturado</td>
+</tr>
+<tr>
+<td>09</td>
+<td><code>09-reviews.png</code></td>
+<td><code>/reviews</code></td>
+<td>Capturado</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Capturas geradas com o app em execução (<code>vite</code> em <code>http://localhost:8081</code> — a porta 8080 estava ocupada no ambiente de captura). Recapture se a UI mudar.</p>
+</blockquote>
+<hr>
+<h2 id="7-jornadas-do-usuario">7. Jornadas do usuário</h2>
+<h3 id="71-tutor">7.1 Tutor</h3>
+<pre><code>Explorar (/) → Detalhe listing → Checkout → Reserva criada
+    → Viagens &amp; Chat → Check-in/out → Avaliações
+</code></pre>
+<p>Paralelo: <strong>Meus Pets</strong> → novo pet (wizard) → perfil do pet usado no checkout.</p>
+<h3 id="72-anfitriao">7.2 Anfitrião</h3>
+<pre><code>Painel (/host) → Aprovar/recusar pending → Bloquear datas
+    → Durante estadia: diário + check-in/out
+    → Avaliar pet/tutor (double-blind)
+</code></pre>
+<h3 id="73-regras-de-negocio-ja-refletidas-na-ui">7.3 Regras de negócio já refletidas na UI</h3>
+<ul>
+<li><strong>Instant Book</strong> vs aprovação manual (critérios de vacina/rating do pet).</li>
+<li>Composição de preço: diária × noites + limpeza + % serviço + caução.</li>
+<li>Políticas: Flexível · Moderada · Rigorosa.</li>
+<li>Features pet: quintal, telas, piscina pet, câmeras, sem outros animais, vet próximo, etc.</li>
+<li>Status do listing: <code>active</code> | <code>paused</code>.</li>
+</ul>
+<hr>
+<h2 id="8-funcionalidades-implementado-vs-simulado">8. Funcionalidades: implementado vs simulado</h2>
+<h3 id="implementado-ui-logica-em-memoria">Implementado (UI + lógica em memória)</h3>
+<ul>
+<li>Busca/filtro de listings  </li>
+<li>Detalhe com galeria, regras e preço  </li>
+<li>Cadastro multi-step de pet  </li>
+<li>Listar / ver / excluir pets  </li>
+<li>Checkout com seleção de pet e cartão mock  </li>
+<li>Fluxo Instant Book → <code>confirmed</code> ou <code>pending</code>  </li>
+<li>Host: aprovações, calendário, listings, receita mock  </li>
+<li>Chat por booking + auto-reply simulado  </li>
+<li>Diário de bordo, check-in e check-out  </li>
+<li>Reviews double-blind + simulação de revelação  </li>
+<li>Troca tutor/host via banner de simulação</li>
+</ul>
+<h3 id="placeholders-nao-reais">Placeholders / não reais</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Auth / login</td>
+<td>UI decorativa; sem sessão real</td>
+</tr>
+<tr>
+<td>Pagamentos</td>
+<td>Cartão validado localmente; sem gateway</td>
+</tr>
+<tr>
+<td>Upload de arquivos</td>
+<td>Nome de arquivo simulado</td>
+</tr>
+<tr>
+<td>Persistência</td>
+<td>Sem localStorage/API — refresh limpa estado</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>Sem rota ou fluxo</td>
+</tr>
+<tr>
+<td>Mapas / geo</td>
+<td>Ausente</td>
+</tr>
+<tr>
+<td>Notificações e-mail/SMS/push</td>
+<td>Ausente</td>
+</tr>
+<tr>
+<td>Testes automatizados</td>
+<td>Script <code>test</code> é stub</td>
+</tr>
+<tr>
+<td>CI/CD e Docker</td>
+<td>Ausentes</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="9-fases-do-projeto-roadmap">9. Fases do projeto (roadmap)</h2>
+<h3 id="fase-0-prototipo-demo-atual">Fase 0 — Protótipo / demo *(atual)*</h3>
+<p><strong>Objetivo:</strong> validar UX e storytelling do marketplace pet.</p>
+<p><strong>Entregas</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> SPA com 9 rotas principais  </li>
+<li><input checked="" disabled="" type="checkbox"> Modelo de domínio tipado  </li>
+<li><input checked="" disabled="" type="checkbox"> Simulação tutor ↔ host  </li>
+<li><input checked="" disabled="" type="checkbox"> Fluxos de reserva, chat, diário e reviews na UI</li>
+</ul>
+<p><strong>Critério de aceite:</strong> demo ao vivo cobrindo jornada tutor e host.</p>
+<hr>
+<h3 id="fase-1-fundacao-de-produto">Fase 1 — Fundação de produto</h3>
+<p><strong>Objetivo:</strong> transformar o protótipo em base persistente e autenticada.</p>
+<p><strong>Entregas</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Auth real (e-mail e/ou OAuth) + sessão  </li>
+<li><input disabled="" type="checkbox"> Backend + Postgres (ex.: Supabase ou Neon) mapeando <code>types/index.ts</code>  </li>
+<li><input disabled="" type="checkbox"> Persistência de users, pets, listings, bookings, messages, reviews  </li>
+<li><input disabled="" type="checkbox"> Remoção do banner de simulação; papéis vindos do token/sessão  </li>
+<li><input disabled="" type="checkbox"> Variáveis por ambiente: <code>.env-dev</code>, <code>.env-homolog</code>, <code>.env-prod</code>  </li>
+<li><input disabled="" type="checkbox"> Autorização por papel (tutor / host; admin preparado)</li>
+</ul>
+<p><strong>Critério de aceite:</strong> refresh mantém dados; login real; CRUD básico via API.</p>
+<hr>
+<h3 id="fase-2-marketplace-operacional">Fase 2 — Marketplace operacional</h3>
+<p><strong>Objetivo:</strong> operação diária sem mocks de mídia e disponibilidade.</p>
+<p><strong>Entregas</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> CRUD completo de listings com storage de fotos  </li>
+<li><input disabled="" type="checkbox"> Calendário e disponibilidade no servidor  </li>
+<li><input disabled="" type="checkbox"> Instant Book e regras de elegibilidade no backend  </li>
+<li><input disabled="" type="checkbox"> Chat persistente (Realtime)  </li>
+<li><input disabled="" type="checkbox"> Upload real de carteira de vacinas e fotos do pet  </li>
+<li><input disabled="" type="checkbox"> Newsletter / e-mail transacional básico (opcional nesta fase)</li>
+</ul>
+<p><strong>Critério de aceite:</strong> dois usuários reais concluem uma reserva ponta a ponta em homologação.</p>
+<hr>
+<h3 id="fase-3-pagamentos-e-confianca">Fase 3 — Pagamentos e confiança</h3>
+<p><strong>Objetivo:</strong> monetização segura e governança.</p>
+<p><strong>Entregas</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Gateway (ex.: Stripe Connect) + caução  </li>
+<li><input disabled="" type="checkbox"> Webhooks, reembolsos e políticas de cancelamento efetivas  </li>
+<li><input disabled="" type="checkbox"> Verificação de hosts (<code>isHostVerified</code>)  </li>
+<li><input disabled="" type="checkbox"> Painel <strong>admin</strong> (moderação, disputas, denúncias)  </li>
+<li><input disabled="" type="checkbox"> Auditoria de eventos financeiros</li>
+</ul>
+<p><strong>Critério de aceite:</strong> pagamento teste em sandbox; disputa resolvida no admin; caução liberada no check-out.</p>
+<hr>
+<h3 id="fase-4-escala-e-polish">Fase 4 — Escala e polish</h3>
+<p><strong>Objetivo:</strong> crescimento, qualidade e canais adicionais.</p>
+<p><strong>Entregas</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> Notificações (push / e-mail / SMS)  </li>
+<li><input disabled="" type="checkbox"> Busca geográfica e mapas  </li>
+<li><input disabled="" type="checkbox"> Revelação automática de reviews por timer em produção  </li>
+<li><input disabled="" type="checkbox"> Testes (unitários, integração, E2E das jornadas críticas)  </li>
+<li><input disabled="" type="checkbox"> Monitoramento, alertas e backups  </li>
+<li><input disabled="" type="checkbox"> PWA ou app mobile, se priorizado</li>
+</ul>
+<p><strong>Critério de aceite:</strong> SLOs definidos; cobertura mínima de testes nas jornadas tutor/host; deploy automatizado.</p>
+<hr>
+<h3 id="visao-consolidada-das-fases">Visão consolidada das fases</h3>
+<pre><code class="language-mermaid">flowchart LR
+  F0[Fase 0 Protótipo UI] --&gt; F1[Fase 1 Auth + DB]
+  F1 --&gt; F2[Fase 2 Marketplace real]
+  F2 --&gt; F3[Fase 3 Pagamentos + Admin]
+  F3 --&gt; F4[Fase 4 Escala + Qualidade]
+</code></pre>
+<hr>
+<h2 id="10-implantacao">10. Implantação</h2>
+<h3 id="101-pre-requisitos">10.1 Pré-requisitos</h3>
+<ul>
+<li>Node.js 18+  </li>
+<li>pnpm (recomendado; o repo possui <code>pnpm-lock.yaml</code>)  </li>
+<li>Git</li>
+</ul>
+<h3 id="102-ambiente-local-fase-0">10.2 Ambiente local (Fase 0)</h3>
+<pre><code class="language-bash"># Na raiz do repositório
+pnpm install
+pnpm start
+# Aplicação em http://localhost:8080
+</code></pre>
+<p>Scripts úteis:</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Comando</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dev</td>
+<td><code>pnpm start</code> ou <code>pnpm dev</code></td>
+<td>Servidor Vite</td>
+</tr>
+<tr>
+<td>Build prod</td>
+<td><code>pnpm run build</code></td>
+<td>Saída em <code>dist/</code></td>
+</tr>
+<tr>
+<td>Build dev</td>
+<td><code>pnpm run build:dev</code></td>
+<td>Saída em <code>dev-dist/</code></td>
+</tr>
+<tr>
+<td>Preview</td>
+<td><code>pnpm run preview</code></td>
+<td>Serve a build localmente</td>
+</tr>
+<tr>
+<td>Lint</td>
+<td><code>pnpm run lint</code></td>
+<td>Oxlint</td>
+</tr>
+<tr>
+<td>Format</td>
+<td><code>pnpm run format</code></td>
+<td>Oxfmt</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Nota:</strong> o <code>README.md</code> ainda menciona <code>localhost:5173</code>; a configuração real em <code>vite.config.ts</code> usa a porta <strong>8080</strong>.</p>
+</blockquote>
+<h3 id="103-variaveis-de-ambiente">10.3 Variáveis de ambiente</h3>
+<p><strong>Hoje (Fase 0):</strong> nenhuma <code>VITE_*</code> obrigatória para rodar o front.</p>
+<p><strong>A partir da Fase 1 (sugerido):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variável</th>
+<th>Ambiente</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>VITE_API_URL</code> / <code>DATABASE_URL</code></td>
+<td>todos</td>
+<td>API ou connection string (servidor)</td>
+</tr>
+<tr>
+<td><code>VITE_SUPABASE_URL</code></td>
+<td>client</td>
+<td>URL do projeto</td>
+</tr>
+<tr>
+<td><code>VITE_SUPABASE_ANON_KEY</code></td>
+<td>client</td>
+<td>Chave pública</td>
+</tr>
+<tr>
+<td>Secrets de service role / Stripe</td>
+<td><strong>somente servidor</strong></td>
+<td>Nunca no bundle do front</td>
+</tr>
+</tbody></table>
+<p>Arquivos sugeridos (sem commitar segredos): <code>.env-dev</code>, <code>.env-homolog</code>, <code>.env-prod</code>.</p>
+<h3 id="104-deploy-do-front-atual-spa-estatica">10.4 Deploy do front atual (SPA estática)</h3>
+<ol>
+<li><code>pnpm run build</code> → pasta <code>dist/</code>  </li>
+<li>Publicar <code>dist/</code> em Vercel, Netlify, Cloudflare Pages, S3+CloudFront ou similar  </li>
+<li>Configurar <strong>SPA fallback</strong>: todas as rotas → <code>index.html</code>  </li>
+<li>Domínio customizado + HTTPS  </li>
+<li>Smoke test: abrir <code>/</code>, <code>/host</code>, <code>/reservations</code>, deep link <code>/listings/list-1</code></li>
+</ol>
+<p>Exemplo de ideia de config Vercel (<code>vercel.json</code> — a criar na Fase 0/1 de deploy):</p>
+<pre><code class="language-json">{
+  &quot;rewrites&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;destination&quot;: &quot;/index.html&quot; }]
+}
+</code></pre>
+<h3 id="105-pipeline-de-implantacao-alvo-fases-13">10.5 Pipeline de implantação alvo (Fases 1–3)</h3>
+<ol>
+<li>Provisionar banco (Supabase/Neon) e migrations das entidades  </li>
+<li>Configurar Auth + políticas RLS / autorização por papel  </li>
+<li>Storage para fotos e carteiras de vacina  </li>
+<li>API (REST/RPC/Edge Functions) alinhada ao <code>DataContext</code> atual  </li>
+<li>Stripe (ou similar) + webhooks em homolog e produção  </li>
+<li>CI: lint → typecheck → build → testes → deploy  </li>
+<li>Deploy Homolog → smoke test das jornadas → Produção  </li>
+<li>Monitoramento (erros, uptime) e backups do banco</li>
+</ol>
+<h3 id="106-checklist-pos-deploy-fase-0">10.6 Checklist pós-deploy (Fase 0)</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Home carrega e lista anúncios mock  </li>
+<li><input disabled="" type="checkbox"> Detalhe de listing e checkout abrem sem 404  </li>
+<li><input disabled="" type="checkbox"> Troca de papel no banner funciona  </li>
+<li><input disabled="" type="checkbox"> Host consegue aprovar reserva pending  </li>
+<li><input disabled="" type="checkbox"> Chat e reviews renderizam  </li>
+<li><input disabled="" type="checkbox"> Build <code>dist/</code> serve corretamente com rewrite SPA</li>
+</ul>
+<hr>
+<h2 id="11-requisitos-nao-funcionais">11. Requisitos não funcionais</h2>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Diretriz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Segurança</strong></td>
+<td>Validação de entrada (Zod), auth nas fases seguintes, HTTPS, sem secrets no client</td>
+</tr>
+<tr>
+<td><strong>LGPD</strong></td>
+<td>Minimizar dados sensíveis do pet/tutor; consentimento; exclusão sob demanda</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>CDN para assets; lazy load de imagens; code-splitting quando o bundle crescer</td>
+</tr>
+<tr>
+<td><strong>Disponibilidade</strong></td>
+<td>Health checks do API/DB a partir da Fase 1; status page opcional</td>
+</tr>
+<tr>
+<td><strong>Manutenibilidade</strong></td>
+<td>Páginas por domínio, types centralizados, UI Shadcn; arquivos &gt; 300 linhas devem ser divididos</td>
+</tr>
+<tr>
+<td><strong>Acessibilidade</strong></td>
+<td>Componentes Radix; navegação por teclado; contraste adequado</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="12-riscos-e-mitigacoes">12. Riscos e mitigações</h2>
+<table>
+<thead>
+<tr>
+<th>Risco</th>
+<th>Impacto</th>
+<th>Mitigação</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Protótipo sem persistência</td>
+<td>Demo ≠ produto</td>
+<td>Priorizar Fase 1</td>
+</tr>
+<tr>
+<td>Pagamento e caução</td>
+<td>Financeiro / confiança</td>
+<td>Stripe + webhooks + auditoria (Fase 3)</td>
+</tr>
+<tr>
+<td>Confiança tutor ↔ host</td>
+<td>Churn / incidentes</td>
+<td>Verificação, reviews, admin, diário</td>
+</tr>
+<tr>
+<td>Dados de saúde do pet</td>
+<td>Privacidade</td>
+<td>Minimização, consentimento, RLS</td>
+</tr>
+<tr>
+<td>Drift doc ↔ código</td>
+<td>Apresentação desatualizada</td>
+<td>Atualizar screenshots e este MD a cada release de fase</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="13-anexos">13. Anexos</h2>
+<h3 id="a-rotas-oficiais">A. Rotas oficiais</h3>
+<table>
+<thead>
+<tr>
+<th>Rota</th>
+<th>Página</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/</code></td>
+<td>Index</td>
+</tr>
+<tr>
+<td><code>/pets</code></td>
+<td>PetsList</td>
+</tr>
+<tr>
+<td><code>/pets/novo</code></td>
+<td>NewPetForm</td>
+</tr>
+<tr>
+<td><code>/pets/:id</code></td>
+<td>PetDetails</td>
+</tr>
+<tr>
+<td><code>/listings/:id</code></td>
+<td>ListingDetails</td>
+</tr>
+<tr>
+<td><code>/checkout/:id</code></td>
+<td>Checkout</td>
+</tr>
+<tr>
+<td><code>/host</code></td>
+<td>HostDashboard</td>
+</tr>
+<tr>
+<td><code>/reservations</code></td>
+<td>ReservationsChat</td>
+</tr>
+<tr>
+<td><code>/reviews</code></td>
+<td>ReviewsPage</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>NotFound</td>
+</tr>
+</tbody></table>
+<h3 id="b-ids-uteis-do-mock-demo">B. IDs úteis do mock (demo)</h3>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>IDs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Users</td>
+<td><code>user-tutor-1</code>, <code>user-host-1</code>, <code>user-host-2</code>, <code>user-host-3</code></td>
+</tr>
+<tr>
+<td>Pets</td>
+<td><code>pet-1</code>, <code>pet-2</code>, <code>pet-3</code></td>
+</tr>
+<tr>
+<td>Listings</td>
+<td><code>list-1</code> … <code>list-6</code></td>
+</tr>
+<tr>
+<td>Bookings</td>
+<td><code>book-pending-1</code>, <code>book-confirmed-1</code>, <code>book-in-progress-1</code>, <code>book-completed-1</code>, <code>book-completed-2</code></td>
+</tr>
+</tbody></table>
+<h3 id="c-manutencao-da-documentacao-fonte-unica">C. Manutenção da documentação (fonte única)</h3>
+<p><strong>Fonte de verdade:</strong> <code>docs/PETSTAY-Documentacao.md</code><br><strong>Artefatos gerados:</strong> <code>docs/PETSTAY-Apresentacao.html</code> (e opcionalmente <code>.pdf</code>)</p>
+<pre><code class="language-bash"># Após editar este Markdown:
+pnpm docs:build          # regenera o HTML de apresentação
+pnpm docs:pdf            # regenera HTML + PDF (Chrome/Edge headless)
+pnpm docs                # alias de docs:pdf
+</code></pre>
+<p>Template visual: <code>docs/templates/apresentacao-shell.html</code> + <code>apresentacao.css</code><br>Script: <code>scripts/generate-docs.mjs</code></p>
+<p><strong>Exportar PDF pela UI:</strong> abra <code>PETSTAY-Apresentacao.html</code> → botão <strong>Exportar PDF</strong> → Destino: Salvar como PDF → ative <strong>Gráficos de segundo plano</strong>.</p>
+<p><strong>Compartilhar com a equipe:</strong> pasta <code>docs/</code> (HTML + <code>screenshots/</code>) ou só o PDF.</p>
+<h3 id="d-glossario-rapido">D. Glossário rápido</h3>
+<table>
+<thead>
+<tr>
+<th>Termo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Instant Book</td>
+<td>Reserva confirmada automaticamente se regras forem atendidas</td>
+</tr>
+<tr>
+<td>Double-blind</td>
+<td>Avaliações só reveladas após ambos enviarem (ou timer)</td>
+</tr>
+<tr>
+<td>Caução</td>
+<td>Valor retido e liberado no check-out se tudo ok</td>
+</tr>
+<tr>
+<td>Daycare</td>
+<td>Creche diurna (sem pernoite)</td>
+</tr>
+<tr>
+<td>SuperHost</td>
+<td>Flag de destaque do anfitrião no modelo</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="analise-de-escalabilidade-e-manutenibilidade">Análise de escalabilidade e manutenibilidade</h2>
+<p>Esta documentação separa o <strong>estado atual (Fase 0)</strong> do <strong>caminho de produto (Fases 1–4)</strong>. O Markdown é a <strong>fonte única</strong>; o HTML/PDF são regenerados com <code>pnpm docs:build</code> / <code>pnpm docs:pdf</code>, eliminando drift manual entre formatos. Screenshots em <code>docs/screenshots/</code> e o modelo em <code>src/types/index.ts</code> devem ser revisados a cada release de fase.</p>
+<p><strong>Próximos passos:</strong> (1) recapturar telas após mudanças visuais relevantes; (2) na Fase 1, anexar schema SQL e diagrama de sequência de reserva; (3) no CI, rodar <code>pnpm docs:build</code> e (opcional) Playwright para smoke das rotas + screenshots.</p>
+<hr>
+<p><em>Documento gerado para o projeto PETSTAY / Petbnb. Atualize a tabela de screenshots e o status das fases conforme o avanço do time.</em></p>
+
+    </article>
+
+    <p class="footer-note">Fonte única: <code>docs/PETSTAY-Documentacao.md</code>. Após editar o Markdown, rode <code>pnpm docs:build</code> para regenerar este HTML.</p>
+  </main>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("btnExportPdf");
+      var toast = document.getElementById("exportToast");
+      var toastTimer;
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 6000);
+      }
+
+      function exportPdf() {
+        showToast("Na impressão: escolha \"Salvar como PDF\" e ative \"Gráficos de segundo plano\".");
+        setTimeout(function () { window.print(); }, 250);
+      }
+
+      btn.addEventListener("click", exportPdf);
+      document.addEventListener("keydown", function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "p") {
+          showToast("Destino: Salvar como PDF · Gráficos de segundo plano ativados.");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

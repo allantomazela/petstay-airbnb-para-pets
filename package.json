@@ -1,6 +1,6 @@
 {
-  "name": "skip-react-template",
-  "description": "A frontend React Vite TypeScript Shadcn UI template for Skip projects",
+  "name": "petstay-airbnb-para-pets",
+  "description": "PETSTAY / Petbnb — marketplace de hospedagem e daycare para pets",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -14,6 +14,9 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "preview": "vite preview",
+    "docs:build": "node scripts/generate-docs.mjs",
+    "docs:pdf": "node scripts/generate-docs.mjs --pdf",
+    "docs": "node scripts/generate-docs.mjs --pdf",
     "test": "echo \"there are no tests for this project\" && exit 0",
     "test:watch": "echo \"there are no tests for this project\" && exit 0"
   },
@@ -78,6 +81,7 @@
     "autoprefixer": "^10.5.0",
     "lucide-react": "^0.577.0",
     "magic-string": "^0.30.21",
+    "marked": "^15.0.12",
     "oxc-parser": "^0.137.0",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
